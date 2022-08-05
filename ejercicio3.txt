@@ -1,0 +1,82 @@
+// you can also use imports, for example:
+import java.util.*;
+
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    char myJoinableChar, swapCharA, swapCharB;
+
+    //Function to check if we can merge to adjacent characters
+    public Boolean isJoinable(String S, String T){
+        Boolean joinable = false;
+
+        //Check if are consecutive duplicate characters in S
+        for(int i = 0 ; i < S.length() - 1; i ++){
+            if( S.charAt(i) == S.charAt(i+1) ){
+                String myJoinedString = S.substring(0, i) + S.substring(i+1, S.length()); //String without the duplicate character
+                if(myJoinedString.equals(T)){ //Check if joined string is equal to T
+                    myJoinableChar = S.charAt(i);
+                    joinable = true;
+                }
+            }
+        }
+
+        return joinable;
+    }
+
+    //Function to check if we can swap two characters to match string S and T
+    public Boolean isSwappable(String S, String T){
+        Boolean swappable = false;
+        ArrayList<Character> charsS = new ArrayList<Character>();
+        ArrayList<Character> charsT = new ArrayList<Character>();
+
+        //Almaceno a de S y almaceno t de T
+        //Almaceno t de S y almaceno a de T
+
+        if( S.length() == T.length() ){ //We only can continue if the length of the two strings is the same
+            for(int i = 0 ; i < S.length() ; i++ ){
+                if(S.charAt(i) != T.charAt(i)){ //Save all the chars that are not the same in 
+                    charsS.add(S.charAt(i));
+                    charsT.add(T.charAt(i));
+                }
+            }
+
+            //We need only 2 characters to swap, if we have more we would need to swap more than once
+            //and if we have less, we cant swap any characters
+
+            if( charsS.size() == 2){
+                //Check if we have the same chars in different order inside the array
+                if( (charsS.get(0) == charsT.get(1)) && (charsS.get(1) == charsT.get(0)) ){
+                    swappable = true;
+                    swapCharA = charsS.get(0);
+                    swapCharB = charsS.get(1);
+                }
+            }
+        }
+
+        return swappable;
+    }
+
+
+    //Solution
+    public String solution(String S, String T) {
+        String mySolution = "IMPOSSIBLE"; //Default case, if any other operation cant be done
+        
+        if(S.equals(T)){ //Already equal
+            mySolution="NOTHING";
+
+        }else if ( S.equals(T.substring(0, T.length()-1)) ){ //Check if S & T are the same without last char in T
+            char myLastChar =  T.charAt(T.length()-1);
+            mySolution = "ADD " + myLastChar; 
+
+        }else if( isJoinable(S, T) ){ //Merge two adjacent characters
+            mySolution = "JOIN " + myJoinableChar;
+
+        }else if( isSwappable(S, T) ){ //Swap two characters
+            mySolution = "SWAP " + swapCharA + " " + swapCharB; 
+        }
+
+       return mySolution;
+    }
+}

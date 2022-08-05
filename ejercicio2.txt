@@ -1,0 +1,30 @@
+// you can also use imports, for example:
+import java.util.*;
+
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    public String solution(String[] A, String[] B, String P) {
+        String mySolution = "NO CONTACT";
+        int myIndex = 0;
+
+        //A cointains contact names
+        //B contains numbers
+        //C contains substring to check
+
+        for( int i = 0; i < B.length ; i++ ){
+            if(B[i].contains(P)){
+                if(mySolution.equals("NO CONTACT")){ //If we dont have any contact saved yet
+                    mySolution = A[i];
+                }
+                else if(A[i].compareTo(mySolution) < 0 ){ //If we already have a contact saved,
+                    mySolution = A[i];
+                }
+            }
+        }
+
+
+        return mySolution;
+    }
+}

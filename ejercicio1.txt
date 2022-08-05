@@ -1,0 +1,98 @@
+// you can also use imports, for example:
+// import java.util.*;
+
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    int B, A, L, O, N;
+
+    public void initialize(){
+        B = 1;
+        A = 1;
+        L = 2; // Hay dos en cada palabra
+        O = 2;
+        N = 1;
+    }
+
+    public int solution(String S) {
+
+        int balloons = 0;
+        int i = 0;
+        Boolean replaced = false; //to start 
+        Boolean keepChecking = true;
+        initialize();
+
+        while(i < S.length() && keepChecking){
+            //Check if the letter appears on the word
+            //if counters are 0 at the end, we have one complete word
+            
+            switch(S.charAt(i)){
+                case 'B':
+                        if(B > 0){
+                            B--;
+                            S = S.substring(0,i) + '.' + S.substring(i+1, S.length());
+                            replaced = true;
+
+                        }
+                    break;
+                case 'A':
+                        if(A > 0){
+                            A--;
+                            S = S.substring(0,i) + '.' + S.substring(i+1, S.length());
+                            replaced = true;
+                        }
+                    break;
+                case 'L':
+                        if(L > 0){
+                            L--;
+                            S = S.substring(0,i) + '.' + S.substring(i+1, S.length());
+                            replaced = true;
+                        }
+                    break;
+                case 'O':
+                        if(O > 0){
+                            O--;
+                            S = S.substring(0,i) + '.' + S.substring(i+1, S.length());
+                            replaced = true;
+                        }
+                    break;
+                case 'N':
+                        if( N > 0){
+                            N--;
+                            S = S.substring(0,i) + '.' + S.substring(i+1, S.length());
+                            replaced = true;
+                        }
+                    break;
+            }
+
+            //Check if all 0
+            if( B == 0 && A == 0 && L == 0 && O == 0 && N == 0){
+                balloons ++;
+                initialize();
+            }
+
+            i++; //Check letter
+
+            //If we didnt find any character, we dont have more coincidences
+            if( i == S.length() && !replaced ){
+                keepChecking = false;
+                replaced = false;
+            }
+
+            //If we didnr find any balloon in one round, theres no balloons in the string
+            if( i == S.length() && balloons == 0){
+                keepChecking = false;
+            }
+
+            //If we replaced at least once and we finish checking the string, we should keep looking
+            if( i == S.length() && replaced && balloons != 0){
+                replaced = false;
+            }
+        }
+
+
+
+       return balloons;
+    }
+}
