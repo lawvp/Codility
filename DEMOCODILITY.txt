@@ -1,0 +1,28 @@
+// you can also use imports, for example:
+import java.util.*;
+
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    public int solution(int[] A) {
+        int missingInt = 1;
+        HashSet<Integer> myHash = new HashSet<Integer>();
+
+        //Sort elements and delete duplicated elements
+        for(int i = 0; i < A.length ; i++){
+            myHash.add(A[i]);
+        }
+        System.out.println(myHash);
+  
+
+        for(int i = 1; i <= A.length+1; i++){
+            if(!myHash.contains(i)){
+                System.out.println(i);
+                return i;
+            }
+        }
+
+        return missingInt;
+    }
+}

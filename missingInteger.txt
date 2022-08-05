@@ -1,0 +1,24 @@
+// you can also use imports, for example:
+import java.util.*;
+
+// you can write to stdout for debugging purposes, e.g.
+// System.out.println("this is a debug message");
+
+class Solution {
+    public int solution(int[] A) {
+        int missingNumber = 0;
+        int arrayLength = A.length;
+        Boolean[] foundnumbers = new Boolean[arrayLength + 1];
+
+        Arrays.fill(foundnumbers, Boolean.FALSE); //Initialize to false
+
+        for(int i = 0; i < arrayLength ; i++){
+            foundnumbers[A[i] - 1] = Boolean.TRUE;
+        }
+        
+        missingNumber = Arrays.asList(foundnumbers).indexOf(Boolean.FALSE) + 1;
+
+        return missingNumber;
+
+    }
+}
